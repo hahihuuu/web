@@ -3,239 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>짝사랑 방해금지</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+    <title>LEE JUN | Character Archive</title>
     <style>
-        body { font-family: "Pretendard", sans-serif; scroll-behavior: smooth; }
-        .hero-bg { 
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://raw.githubusercontent.com/hahihuuu/a/refs/heads/main/%EC%A7%84%EC%B2%AD%EA%B3%A0%20%EB%B0%B0%EA%B2%BD22.jpg'); 
-            background-size: cover; background-position: center; 
+        :root {
+            --main-red: #e63946;
+            --dark-bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --gray: #777;
         }
-        .instagram-img { aspect-ratio: 1 / 1; object-fit: cover; }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            margin: 0; background: var(--dark-bg); color: #fff; 
+            font-family: 'Pretendard', sans-serif; line-height: 1.5;
+        }
+
+        header {
+            padding: 15px 20px; border-bottom: 1px solid var(--main-red);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; background: rgba(13,13,13,0.9); z-index: 100;
+        }
+
+        section { padding: 30px 20px; border-bottom: 1px solid #222; }
+        h2 { font-size: 1.1rem; margin-bottom: 15px; color: var(--main-red); font-weight: 800; letter-spacing: 1px; }
+
+        /* 1. 프로필 섹션 */
+        .profile-header { display: flex; gap: 15px; margin-bottom: 10px; }
+        .profile-img { 
+            width: 105px; 
+            height: 140px; 
+            border-radius: 8px; 
+            border: 1px solid var(--main-red); 
+            flex-shrink: 0;
+            object-fit: cover; 
+            object-position: center;
+            display: block; 
+        }
+        .profile-basic { flex-grow: 1; }
+        .name-kr { font-size: 1.3rem; font-weight: 700; margin: 0; color: #fff; }
+        .dates { font-size: 0.75rem; color: var(--gray); margin: 5px 0 12px 0; font-family: monospace; }
+        
+        .info-row { font-size: 0.85rem; margin-bottom: 4px; color: #eee; }
+        .label { color: var(--main-red); font-weight: bold; font-size: 0.7rem; margin-right: 6px; }
+
+        .trait-container { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 20px; }
+        .trait-box { 
+            background: rgba(230, 57, 70, 0.1); border: 1px solid rgba(230, 57, 70, 0.3); 
+            padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; color: #ffcccc;
+        }
+
+        /* 2. 특징 섹션 */
+        .feature-list { padding: 0; margin: 0; list-style: none; }
+        .feature-item { font-size: 0.85rem; margin-bottom: 10px; padding-left: 15px; position: relative; color: #ccc; }
+        .feature-item::before { content: '•'; position: absolute; left: 0; color: var(--main-red); }
+
+        /* [추가] 3. 스마트폰 메시지 섹션 */
+        .msg-list { background: #111; padding: 15px; border-radius: 15px; border: 1px solid #222; }
+        .msg-item { margin-bottom: 12px; font-size: 0.85rem; display: flex; flex-direction: column; }
+        .msg-sender { color: var(--main-red); font-weight: bold; font-size: 0.75rem; margin-bottom: 2px; }
+        .msg-text { background: #222; padding: 8px 12px; border-radius: 0 12px 12px 12px; display: inline-block; max-width: 90%; align-self: flex-start; }
+        .msg-time { font-size: 0.65rem; color: #444; margin-top: 4px; align-self: flex-start; margin-left: 5px; }
+
+        /* 4. 사망 이유 섹션 */
+        .death-cause-box { background: #151515; border-radius: 10px; padding: 15px; border: 1px solid #222; }
+        .hidden-trigger { color: var(--main-red); text-decoration: underline; cursor: pointer; font-size: 0.8rem; margin-left: 5px; }
+        #hidden-detail { display: none; margin-top: 12px; font-size: 0.85rem; color: #ddd; border-left: 2px solid var(--main-red); padding-left: 10px; }
+
+        .blind-zone {
+            margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.02); border: 1px dashed #333;
+            text-align: center; cursor: pointer; position: relative; border-radius: 8px;
+        }
+        .blind-text { filter: blur(5px); opacity: 0; font-size: 0.9rem; color: #fff; transition: 1.5s ease; font-style: italic; }
+        .blind-zone.reveal .blind-text { filter: blur(0); opacity: 1; text-shadow: 0 0 8px rgba(255,255,255,0.4); color: #efefef; }
+        #click-hint { font-size: 0.6rem; color: #444; margin-top: 5px; letter-spacing: 1px; transition: 0.5s; }
+
+        /* 5. 속마음 섹션 */
+        .t-btn-group { display: flex; justify-content: space-between; gap: 5px; }
+        .t-btn { flex: 1; background: #222; border: 1px solid #333; color: #888; padding: 12px 0; border-radius: 5px; font-size: 0.75rem; }
+        .t-btn.active { background: var(--main-red); color: #fff; border-color: var(--main-red); }
+        #thought-display { display: none; margin-top: 15px; padding: 15px; background: #1a1a1a; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; color: #eee; font-style: italic; }
+
+        /* 6. 시작 설정 */
+        .scenario-card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--main-red); }
+        .scenario-title { font-weight: bold; font-size: 1rem; margin-bottom: 5px; color: var(--main-red); }
+        .scenario-desc { font-size: 0.85rem; color: #aaa; }
+
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-black text-black-600 tracking-tighter">짝사랑 <span class="text-red-500">x<span class="text-blue-600">방해금지<span class="text-red-500">x</div>
-            <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-600">
-                <a href="#world" class="hover:text-blue-600 transition">세계관</a>
-                <a href="#characters" class="hover:text-blue-600 transition">등장인물</a>
-                <a href="#campus" class="hover:text-blue-600 transition">학교시설</a>
-                <a href="#instagram" class="hover:text-pink-500 transition">SNS</a>
+<header>
+    <div style="font-weight: 900; color: var(--main-red);">LEE JUN ARCHIVE</div>
+    <div style="font-size: 0.65rem; font-family: monospace; color: var(--gray);">SESSION: 20240109</div>
+</header>
+
+<section>
+    <div class="profile-header">
+        <img src="https://github.com/hahihuuu/web/blob/main/%ED%94%84%EB%A1%9C%ED%95%84.jpg?raw=true" class="profile-img" alt="한이준 프로필">
+        <div class="profile-basic">
+            <h1 class="name-kr">한이준</h1>
+            <p class="dates">1997.06.08 - 2024.01.09</p>
+            <div class="info-row"><span class="label">외형</span> 179cm, 빨간 머리, 갈안</div>
+            <div class="info-row"><span class="label">체형</span> 넓은 어깨, 마른 근육질, 곧은 몸</div>
+            <div class="info-row"><span class="label">패션</span> 레드 레더자켓, 블랙 니트, 선글라스</div>
+            <div class="trait-container">
+                <div class="trait-box">능글</div>
+                <div class="trait-box">장난기</div>
+                <div class="trait-box">자유</div>
+                <div class="trait-box">즉흥적</div>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <header class="hero-bg h-screen flex items-center justify-center text-center text-white px-6">
-        <div>
-<div class="w-24 h-24 bg-blue-100 rounded-full mb-10 mx-auto overflow-hidden border-4 border-blue-50"><img src='https://raw.githubusercontent.com/hahihuuu/a/refs/heads/main/%EB%A1%9C%EA%B3%A0.jpg'>;</div>
-            <span class="bg-blue-600 px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block shadow-lg">2026 진청고등학교 신입생을 환영합니다</span>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">짝사랑 <span class="text-blue-300">방해 금지</span></h1>
-            <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto font-light">
-                내가 좋아하는 사람 vs 나를 좋아해 주는 사람<br><h2 class="text-xl font-bold mb-4">당신의 선택은?
-            </p>
-            <a href="#world" class="mt-10 inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition">이야기 시작하기</a>
-        </div>
-    </header>
+<section>
+    <h2>Features</h2>
+    <ul class="feature-list">
+        <li class="feature-item">사망 당시 패션을 착용 중</li>
+        <li class="feature-item">삶에 대한 억울함에 나고야를 누비며 지냄</li>
+        <li class="feature-item">유창한 일본어지만 한국어 들리면 신남</li>
+        <li class="feature-item">느릿하고 여유로운 발걸음</li>
+        <li class="feature-item">생전 자신의 삶을 매우 사랑했음</li>
+    </ul>
+</section>
 
-    <section id="world" class="py-24 max-w-4xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">📓 스토리</h2>
-            <div class="w-16 h-1 bg-blue-600 mx-auto"></div>
+<section>
+    <h2>Last Chat Log</h2>
+    <div class="msg-list">
+        <div class="msg-item">
+            <span class="msg-sender">엄마</span>
+            <span class="msg-text">준아, 공연은 잘 마쳤어? 보고 싶네, 우리 아들.</span>
+            <span class="msg-time">오후 9:02</span>
         </div>
-        <div class="bg-white p-10 rounded-3xl shadow-sm border border-gray-100 leading-relaxed text-gray-600 text-center">
-            <p class="mb-6 italic text-xl text-gray-800">"내가 짝사랑하는 선배,<br>나를 짝사랑하는 후배"</p>
-            <p>언제나 다정하고 상냥한 모범생 선배,<br>
-            나를 향한 마음은 진심인 사고뭉치 후배,<br><br>
-            서툴고 무모한, 그래서 더 아름다운 청춘의 한 페이지를 기록합니다.</p>
+        <div class="msg-item" style="opacity: 0.7;">
+            <span class="msg-sender">Baddy 유우마</span>
+            <span class="msg-text">兄貴、パーティーの場所どこ？今向かってる。遅れてごめん！(형, 파티 장소 어디야? 나 이제 출발 중. 늦어서 미안!)</span>
+            <span class="msg-time">오후 9:15</span>
         </div>
-    </section>
+        <div class="msg-item" style="opacity: 0.4;">
+            <span class="msg-sender">Baddy 루이</span>
+            <span class="msg-text">どこにいるの？なんで来ないの？みんな待ってるよ。(너 어디야? 왜 안 와? 다들 기다리고 있는데.)</span>
+            <span class="msg-time">오후 10:30</span>
+        </div>
+    </div>
+</section>
 
-    <section id="characters" class="py-24 bg-blue-50 px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">👤 등장인물</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="md:col-span-2 bg-white p-8 rounded-3xl border-2 border-blue-200 shadow-xl hover:scale-[1.02] transition">
-                    <div class="w-24 h-24 bg-blue-100 rounded-full mb-4 mx-auto overflow-hidden border-4 border-blue-50"><img src='https://images-ng.pixai.art/gi/thumb/2460acd5-ab25-4036-8a15-78339390831e'>; </div>
-                    <h3 class="text-2xl font-bold text-center mb-2">한재윤 (3학년 1반)</h3>
-                    <p class="text-center text-blue-600 font-bold mb-4">"안녕, 유저야. 이제 집 가?"</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">모든 이에게 친절하고 완벽한 진청고 학생회장.<br>성적 전교 3위권, 서인대 의대 목표로 공부 중이다.<br>친구, 후배, 선생님들에게 인기와 지지를 받고 있다.</p>
-                </div>
-                <div class="md:col-span-2 bg-white p-8 rounded-3xl border-2 border-pink-200 shadow-xl hover:scale-[1.02] transition">
-                    <div class="w-24 h-24 bg-pink-100 rounded-full mb-4 mx-auto overflow-hidden border-4 border-pink-50"><img src='https://images-ng.pixai.art/gi/thumb/398dd2ba-b6bc-4c68-8224-0c841885b282'>;</div>
-                    <h3 class="text-2xl font-bold text-center mb-2">이도하 (1학년 3반)</h3>
-                    <p class="text-center text-pink-600 font-bold mb-4">"누나! 교문 앞에서 기다릴게."</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">무단결석 단골 손님 소문난 사고뭉치.<br>문제아지만 일부 학생들에겐 잘생긴 외모로 인기 있다.<br>소문과 달리 큰 사고 전적은 전무하다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border text-center shadow-sm">
-                    <div class="w-16 h-16 bg-gray-100 rounded-full mb-3 mx-auto overflow-hidden border-4 border-gray-50""><img src='https://images-ng.pixai.art/gi/orig/cf184897-da9a-4ab5-abfb-45fe35bb2394'>;</div>
-                    <h4 class="font-bold uppercase tracking-wide">이하연 (2학년 1반)</h4>
-                    <p class="text-xs text-blue-500 font-semibold mb-2">{user}의 베프</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">{user}와 같은 반 친구.<br>털털하고 눈치가 빠르다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border text-center shadow-sm">
-                    <div class="w-16 h-16 bg-gray-100 rounded-full mb-3 mx-auto overflow-hidden border-4 border-gray-50""><img src='https://images-ng.pixai.art/gi/orig/c8b5a2a3-d363-4ccf-99ca-cb26f8eb2f85'>;"></div>
-                    <h4 class="font-bold">한지유 (2학년 4반)</h4>
-                    <p class="text-xs text-blue-500 font-semibold mb-2">진청고 정보통</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">{user}와 고1 때 같은 반.<br>소문을 좋아한다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border text-center shadow-sm">
-                    <div class="w-16 h-16 bg-gray-100 rounded-full mb-3 mx-auto overflow-hidden border-4 border-gray-50""><img src='https://images-ng.pixai.art/gi/orig/87e0891a-f5e8-446a-9eb3-54d4251c52c7'>;"></div>
-                    <h4 class="font-bold">강한욱 (1학년 3반)</h4>
-                    <p class="text-xs text-blue-500 font-semibold mb-2">이도하의 절친</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">이도하의 오랜 친구.<br>이도하의 과거를 잘 안다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border text-center shadow-sm">
-                    <div class="w-16 h-16 bg-gray-100 rounded-full mb-3 mx-auto overflow-hidden border-4 border-gray-50""><img src='https://images-ng.pixai.art/gi/orig/613bffa1-639c-4e92-9608-2e13712549b9'>;"></div>
-                    <h4 class="font-bold">김형진 (3학년 2반)</h4>
-                    <p class="text-xs text-blue-500 font-semibold mb-2">학생회 부회장</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">한재윤을 아끼는 친구.<br>이도하를 탐탁지 않아한다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border text-center shadow-sm md:col-start-2 lg:col-start-auto">
-                    <div class="w-16 h-16 bg-gray-100 rounded-full mb-3 mx-auto overflow-hidden border-4 border-gray-50""><img src='https://images-ng.pixai.art/gi/orig/920ae0e9-946d-449b-857d-b5bc12587deb'>;"></div>
-                    <h4 class="font-bold">박하은 (1학년 2반)</h4>
-                    <p class="text-xs text-blue-500 font-semibold mb-2">학생회 임원</p>
-                    <p class="text-gray-600 text-sm leading-relaxed text-center">한재윤을 짝사랑 중.<br>{user}를 경계, 질투한다.</p>
-                </div>
+<section>
+    <h2>Cause of Death</h2>
+    <div class="death-cause-box">
+        <p style="font-size: 0.85rem; margin: 0; color: #999;">
+            2024년 1월 9일 밤 9시. <br>비 내리던 밤 공연 후 파티를 하러 가던 중...
+            <span class="hidden-trigger" onclick="showDetail()">[ 상세 보기 ]</span>
+        </p>
+        <div id="hidden-detail">
+            길고양이를 구조하려다 젖은 노면에 미끄러져 달려오던 차량과 충돌.
+        </div>
+
+        <div class="blind-zone" onclick="revealSadness(this)">
+            <div class="blind-text">
+                '고양이를 발견하지 않았더라면...<br>미끄러지지 않았더라면...<br>그러면 난... 살 수 있었을까?'
             </div>
+            <div id="click-hint">이준의 남겨진 생각 읽기</div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="campus" class="py-24 bg-white px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center">✏️ Campus Life</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-                    <h3 class="text-2xl font-bold mb-8 flex items-center"><span class="mr-2">🏫</span> 시설 안내</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-bold text-blue-600 mb-2">본관</h4>
-                            <ul class="text-sm text-gray-600 space-y-1">
-                                <li><strong>4F:</strong> 3학년 교실, 자습실</li>
-                                <li><strong>3F:</strong> 2학년 교실, 미술실</li>
-                                <li><strong>2F:</strong> 1학년 교실, 컴퓨터실, 과학실, <span class="text-orange-600">급식실</span></li>
-                                <li><strong>1F:</strong> 교장실, 보건실, <span class="text-blue-600 font-bold text-xs uppercase">매점</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-600 mb-2">별관</h4>
-                            <p class="text-sm text-gray-600">체육관, 음악실, 도서관</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-blue-600 mb-2">운동장</h4>
-                            <p class="text-sm text-gray-600">체육 수업, 체육대회 개최지, 농구&족구&축구 가능</p>
-                        </div>
-                    </div>
-                </div>
+<section>
+    <h2>Inner Voice</h2>
+    <div class="t-btn-group">
+        <button class="t-btn" onclick="openT('death', this)">사망 당시</button>
+        <button class="t-btn" onclick="openT('early', this)">사망 후</button>
+        <button class="t-btn" onclick="openT('current', this)">현재</button>
+    </div>
+    <div id="thought-display"></div>
+</section>
 
-                <div class="bg-blue-900 text-white p-8 rounded-3xl shadow-xl">
-                    <h3 class="text-2xl font-bold mb-8 flex items-center"><span class="mr-2">📅</span> 주요 일정</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">03월</div>
-                            <p class="text-sm">입학식 및 새 학기 시작</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">04월</div>
-                            <p class="text-sm">중간고사</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">05월</div>
-                            <p class="text-sm">진청체육대회</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">07월</div>
-                            <p class="text-sm">여름방학</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">08월</div>
-                            <p class="text-sm">개학 및 2학기 시작</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">09월</div>
-                            <p class="text-sm">기말고사</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">09월</div>
-                            <p class="text-sm">전 학년 수학여행</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">11월</div>
-                            <p class="text-sm">대학수학능력시험, 진청고 푸른 빛 축제</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">12월</div>
-                            <p class="text-sm">겨울방학</p>
-                        </div>
-                        <div class="flex items-start space-x-4 border-t border-blue-800 pt-4">
-                            <div class="bg-blue-700 px-3 py-1 rounded text-sm font-bold">2027년 02월</div>
-                            <p class="text-sm">졸업식</p>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section style="border-bottom: none;">
+    <h2>Scenario Settings</h2>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 1. 운명</div>
+        <div class="scenario-desc">나고야 사카에 거리에서 이준과 첫 만남을 갖습니다.</div>
+    </div>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 2. 악몽</div>
+        <div class="scenario-desc">이준의 기일, 나고야에서 그와 조우합니다.</div>
+    </div>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 3. 환생</div>
+        <div class="scenario-desc">성불 후 환생하여 도쿄에서 재회합니다.</div>
+    </div>
+</section>
 
-    <section id="instagram" class="py-24 bg-gray-50 px-6">
-        <div>
-<div class="w-10 h-10 bg-white-100 squarounded-full mb-4 mx-auto"><img src='https://img.freepik.com/premium-vector/instagram-icon_768467-672.jpg?semt=ais_hybrid&w=740&q=80'></div>
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-2 text-center">Instagram</h2>
-            <p class="text-center text-gray-500 mb-12">진청고등학교 대신 전해드립니다<br>@jinchung_daejeon</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
-                    <div class="flex items-center p-3 space-x-3 border-b">
-                        <div class="w-8 h-8 rounded-full bg-blue-200"><img src='https://github.com/hahihuuu/a/blob/main/%EB%A1%9C%EA%B3%A0.jpg?raw=true'></div>
-                        <span class="font-bold text-xs text-gray-700">jinchung_daejeon</span>
-                    </div>
-                    <img src="https://github.com/hahihuuu/a/blob/main/%EC%A7%84%EB%8C%80%EC%A0%84%202.jpg?raw=true="w-full instagram-img">
-                    <div class="p-4">
-                        <p class="text-sm mb-1"><span class="font-bold">jinchung_daejeon</span> 익명 제보. 과한 반응 삭제함~</p>
-                        <p class="text-xs text-gray-400 mt-2">2시간 전</p>
-                    </div>
-                </div>
-                <div class="bg-white border rounded-lg overflow-hidden shadow-sm border-pink-100 hover:shadow-md transition">
-                    <div class="flex items-center p-3 space-x-3 border-b">
-                        <div class="w-8 h-8 rounded-full bg-pink-200"><img src='https://github.com/hahihuuu/a/blob/main/%EB%A1%9C%EA%B3%A0.jpg?raw=true'></div>
-                        <span class="font-bold text-xs text-gray-700">jinchung_daejeon</span>
-                    </div>
-                    <img src="https://github.com/hahihuuu/a/blob/main/%EC%A7%84%EB%8C%80%EC%A0%84%201.jpg?raw=true" class="w-full instagram-img">
-                    <div class="p-4">
-                        <p class="text-sm mb-1"><span class="font-bold">jinchung_daejeon</span> 얘들아, 누군지 모르는 척해라. 익명이다.</p>
-                        <p class="text-xs text-gray-400 mt-2">5시간 전</p>
-                    </div>
-                </div>
-                <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
-                    <div class="flex items-center p-3 space-x-3 border-b">
-                        <div class="w-8 h-8 rounded-full bg-gray-200"><img src='https://github.com/hahihuuu/a/blob/main/%EB%A1%9C%EA%B3%A0.jpg?raw=true'></div>
-                        <span class="font-bold text-xs text-gray-700">jinchung_daejeon</span>
-                    </div>
-                    <img src="https://github.com/hahihuuu/a/blob/main/%EC%A7%84%EB%8C%80%EC%A0%84%203.jpg?raw=true="w-full instagram-img">
-                    <div class="p-4">
-                        <p class="text-sm mb-1"><span class="font-bold">jinchung_daejeon</span> 학생회장 인기 뭐냐. ㄷㄷ</p>
-                        <p class="text-xs text-gray-400 mt-2">1일 전</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer style="padding: 20px; text-align: center; font-size: 0.6rem; color: #333;">
+    © 2024 HAN LEE JUN MEMORIAL ARCHIVE
+</footer>
 
-    <footer class="py-12 bg-white border-t text-center">
-        <div class="text-blue-600 font- mb-4 tracking-tighter text-xl">진청고등학교 홈페이지</div>
-        <p class="text-gray-400 text-xs">© 2026 Hanbit High Project. 모든 인물과 사건은 픽션입니다.</p>
-    </footer>
+<script>
+    function showDetail() {
+        document.getElementById('hidden-detail').style.display = 'block';
+        event.target.style.display = 'none';
+    }
+
+    function revealSadness(el) {
+        el.classList.add('reveal');
+        document.getElementById('click-hint').style.opacity = '0';
+        setTimeout(() => { document.getElementById('click-hint').style.display = 'none'; }, 500);
+    }
+
+    const tData = {
+        death: "엄마, 미안해. 아빠, 미안해. 이렇게 갈 줄 알았으면 전화라도 한 통 더 할걸. 마지막이 이럴 줄 알았으면… 젠장. 억울해서 미치겠네.",
+        early: "아직도 사카에 거리를 헤매고 있다. 익숙한 풍경인데 더는 내가 섞일 수 없는 곳. 사람들이 내 몸을 통과할 때마다 느껴지는 서늘함이 끔찍하다. 그래도 빨간 머리 유령이라니, 꽤 힙한 것 같기도.",
+        current: "익숙해질 만도 한데, 여전히 낯선 죽음. 사람들 존나 많다. 다들 어디 가느라 저렇게 바쁘지. 자, 오늘은 누구한테 말을 걸어 볼까? 어차피 못 듣겠지만."
+    };
+
+    function openT(key, btn) {
+        const d = document.getElementById('thought-display');
+        d.style.display = 'block';
+        d.innerText = tData[key];
+        document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
 
 </body>
-
 </html>
-
-
-
