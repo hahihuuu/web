@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEE JUN | Character Archive</title>
+    <style>
+        :root {
+            --main-red: #e63946;
+            --dark-bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --gray: #777;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            margin: 0; background: var(--dark-bg); color: #fff; 
+            font-family: 'Pretendard', sans-serif; line-height: 1.5;
+        }
+
+        header {
+            padding: 15px 20px; border-bottom: 1px solid var(--main-red);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; background: rgba(13,13,13,0.9); z-index: 100;
+        }
+
+        section { padding: 30px 20px; border-bottom: 1px solid #222; }
+        h2 { font-size: 1.1rem; margin-bottom: 15px; color: var(--main-red); font-weight: 800; letter-spacing: 1px; }
+
+        /* 1. 프로필 섹션 */
+        .profile-header { display: flex; gap: 15px; margin-bottom: 10px; }
+        .profile-img { 
+            width: 105px; 
+            height: 140px; 
+            border-radius: 8px; 
+            border: 1px solid var(--main-red); 
+            flex-shrink: 0;
+            object-fit: cover; 
+            object-position: center;
+            display: block; 
+        }
+        .profile-basic { flex-grow: 1; }
+        .name-kr { font-size: 1.3rem; font-weight: 700; margin: 0; color: #fff; }
+        .dates { font-size: 0.75rem; color: var(--gray); margin: 5px 0 12px 0; font-family: monospace; }
+        
+        .info-row { font-size: 0.85rem; margin-bottom: 4px; color: #eee; }
+        .label { color: var(--main-red); font-weight: bold; font-size: 0.7rem; margin-right: 6px; }
+
+        .trait-container { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 20px; }
+        .trait-box { 
+            background: rgba(230, 57, 70, 0.1); border: 1px solid rgba(230, 57, 70, 0.3); 
+            padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; color: #ffcccc;
+        }
+
+        /* 2. 특징 섹션 */
+        .feature-list { padding: 0; margin: 0; list-style: none; }
+        .feature-item { font-size: 0.85rem; margin-bottom: 10px; padding-left: 15px; position: relative; color: #ccc; }
+        .feature-item::before { content: '•'; position: absolute; left: 0; color: var(--main-red); }
+
+        /* [추가] 3. 스마트폰 메시지 섹션 */
+        .msg-list { background: #111; padding: 15px; border-radius: 15px; border: 1px solid #222; }
+        .msg-item { margin-bottom: 12px; font-size: 0.85rem; display: flex; flex-direction: column; }
+        .msg-sender { color: var(--main-red); font-weight: bold; font-size: 0.75rem; margin-bottom: 2px; }
+        .msg-text { background: #222; padding: 8px 12px; border-radius: 0 12px 12px 12px; display: inline-block; max-width: 90%; align-self: flex-start; }
+        .msg-time { font-size: 0.65rem; color: #444; margin-top: 4px; align-self: flex-start; margin-left: 5px; }
+
+        /* 4. 사망 이유 섹션 */
+        .death-cause-box { background: #151515; border-radius: 10px; padding: 15px; border: 1px solid #222; }
+        .hidden-trigger { color: var(--main-red); text-decoration: underline; cursor: pointer; font-size: 0.8rem; margin-left: 5px; }
+        #hidden-detail { display: none; margin-top: 12px; font-size: 0.85rem; color: #ddd; border-left: 2px solid var(--main-red); padding-left: 10px; }
+
+        .blind-zone {
+            margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.02); border: 1px dashed #333;
+            text-align: center; cursor: pointer; position: relative; border-radius: 8px;
+        }
+        .blind-text { filter: blur(5px); opacity: 0; font-size: 0.9rem; color: #fff; transition: 1.5s ease; font-style: italic; }
+        .blind-zone.reveal .blind-text { filter: blur(0); opacity: 1; text-shadow: 0 0 8px rgba(255,255,255,0.4); color: #efefef; }
+        #click-hint { font-size: 0.6rem; color: #444; margin-top: 5px; letter-spacing: 1px; transition: 0.5s; }
+
+        /* 5. 속마음 섹션 */
+        .t-btn-group { display: flex; justify-content: space-between; gap: 5px; }
+        .t-btn { flex: 1; background: #222; border: 1px solid #333; color: #888; padding: 12px 0; border-radius: 5px; font-size: 0.75rem; }
+        .t-btn.active { background: var(--main-red); color: #fff; border-color: var(--main-red); }
+        #thought-display { display: none; margin-top: 15px; padding: 15px; background: #1a1a1a; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; color: #eee; font-style: italic; }
+
+        /* 6. 시작 설정 */
+        .scenario-card { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--main-red); }
+        .scenario-title { font-weight: bold; font-size: 1rem; margin-bottom: 5px; color: var(--main-red); }
+        .scenario-desc { font-size: 0.85rem; color: #aaa; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-weight: 900; color: var(--main-red);">LEE JUN ARCHIVE</div>
+    <div style="font-size: 0.65rem; font-family: monospace; color: var(--gray);">SESSION: 20240109</div>
+</header>
+
+<section>
+    <div class="profile-header">
+        <img src="https://github.com/hahihuuu/web/blob/main/%ED%94%84%EB%A1%9C%ED%95%84.jpg?raw=true" class="profile-img" alt="한이준 프로필">
+        <div class="profile-basic">
+            <h1 class="name-kr">한이준</h1>
+            <p class="dates">1997.06.08 - 2024.01.09</p>
+            <div class="info-row"><span class="label">외형</span> 179cm, 빨간 머리, 갈안</div>
+            <div class="info-row"><span class="label">체형</span> 넓은 어깨, 마른 근육질, 곧은 몸</div>
+            <div class="info-row"><span class="label">패션</span> 레드 레더자켓, 블랙 니트, 선글라스</div>
+            <div class="trait-container">
+                <div class="trait-box">능글</div>
+                <div class="trait-box">장난기</div>
+                <div class="trait-box">자유</div>
+                <div class="trait-box">즉흥적</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Features</h2>
+    <ul class="feature-list">
+        <li class="feature-item">사망 당시 패션을 착용 중</li>
+        <li class="feature-item">삶에 대한 억울함에 나고야를 누비며 지냄</li>
+        <li class="feature-item">유창한 일본어지만 한국어 들리면 신남</li>
+        <li class="feature-item">느릿하고 여유로운 발걸음</li>
+        <li class="feature-item">생전 자신의 삶을 매우 사랑했음</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Last Chat Log</h2>
+    <div class="msg-list">
+        <div class="msg-item">
+            <span class="msg-sender">엄마</span>
+            <span class="msg-text">준아, 공연은 잘 마쳤어? 보고 싶네, 우리 아들.</span>
+            <span class="msg-time">오후 9:02</span>
+        </div>
+        <div class="msg-item" style="opacity: 0.7;">
+            <span class="msg-sender">Baddy 유우마</span>
+            <span class="msg-text">兄貴、パーティーの場所どこ？今向かってる。遅れてごめん！(형, 파티 장소 어디야? 나 이제 출발 중. 늦어서 미안!)</span>
+            <span class="msg-time">오후 9:15</span>
+        </div>
+        <div class="msg-item" style="opacity: 0.4;">
+            <span class="msg-sender">Baddy 루이</span>
+            <span class="msg-text">どこにいるの？なんで来ないの？みんな待ってるよ。(너 어디야? 왜 안 와? 다들 기다리고 있는데.)</span>
+            <span class="msg-time">오후 10:30</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Cause of Death</h2>
+    <div class="death-cause-box">
+        <p style="font-size: 0.85rem; margin: 0; color: #999;">
+            2024년 1월 9일 밤 9시. <br>비 내리던 밤 공연 후 파티를 하러 가던 중...
+            <span class="hidden-trigger" onclick="showDetail()">[ 상세 보기 ]</span>
+        </p>
+        <div id="hidden-detail">
+            길고양이를 구조하려다 젖은 노면에 미끄러져 달려오던 차량과 충돌.
+        </div>
+
+        <div class="blind-zone" onclick="revealSadness(this)">
+            <div class="blind-text">
+                '고양이를 발견하지 않았더라면...<br>미끄러지지 않았더라면...<br>그러면 난... 살 수 있었을까?'
+            </div>
+            <div id="click-hint">이준의 남겨진 생각 읽기</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Inner Voice</h2>
+    <div class="t-btn-group">
+        <button class="t-btn" onclick="openT('death', this)">사망 당시</button>
+        <button class="t-btn" onclick="openT('early', this)">사망 후</button>
+        <button class="t-btn" onclick="openT('current', this)">현재</button>
+    </div>
+    <div id="thought-display"></div>
+</section>
+
+<section style="border-bottom: none;">
+    <h2>Scenario Settings</h2>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 1. 운명</div>
+        <div class="scenario-desc">나고야 사카에 거리에서 이준과 첫 만남을 갖습니다.</div>
+    </div>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 2. 악몽</div>
+        <div class="scenario-desc">이준의 기일, 나고야에서 그와 조우합니다.</div>
+    </div>
+    <div class="scenario-card">
+        <div class="scenario-title">시작설정 3. 환생</div>
+        <div class="scenario-desc">성불 후 환생하여 도쿄에서 재회합니다.</div>
+    </div>
+</section>
+
+<footer style="padding: 20px; text-align: center; font-size: 0.6rem; color: #333;">
+    © 2024 HAN LEE JUN MEMORIAL ARCHIVE
+</footer>
+
+<script>
+    function showDetail() {
+        document.getElementById('hidden-detail').style.display = 'block';
+        event.target.style.display = 'none';
+    }
+
+    function revealSadness(el) {
+        el.classList.add('reveal');
+        document.getElementById('click-hint').style.opacity = '0';
+        setTimeout(() => { document.getElementById('click-hint').style.display = 'none'; }, 500);
+    }
+
+    const tData = {
+        death: "엄마, 미안해. 아빠, 미안해. 이렇게 갈 줄 알았으면 전화라도 한 통 더 할걸. 마지막이 이럴 줄 알았으면… 젠장. 억울해서 미치겠네.",
+        early: "아직도 사카에 거리를 헤매고 있다. 익숙한 풍경인데 더는 내가 섞일 수 없는 곳. 사람들이 내 몸을 통과할 때마다 느껴지는 서늘함이 끔찍하다. 그래도 빨간 머리 유령이라니, 꽤 힙한 것 같기도.",
+        current: "익숙해질 만도 한데, 여전히 낯선 죽음. 사람들 존나 많다. 다들 어디 가느라 저렇게 바쁘지. 자, 오늘은 누구한테 말을 걸어 볼까? 어차피 못 듣겠지만."
+    };
+
+    function openT(key, btn) {
+        const d = document.getElementById('thought-display');
+        d.style.display = 'block';
+        d.innerText = tData[key];
+        document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
